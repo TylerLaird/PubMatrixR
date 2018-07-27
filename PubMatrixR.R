@@ -43,7 +43,7 @@ PubMatrix<-function(A,B,API.key=NULL,Database='pubmed',daterange=NULL,outfile){
     layout(margin=m) %>% add_annotations(x=rep(0:(length(A)-1), each=length(B)),
                                          y=rep(seq(0,length(B)-1),length(B)),
                                          text=unlist(searchterm_matrix), showarrow=F)
-  p
+  print(p)
   
   if(!is.null(outfile)){
     result_url_xlsx<-paste0('https://www.ncbi.nlm.nih.gov/',Database,'/?term=')
