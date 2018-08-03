@@ -1,14 +1,23 @@
-A<-c() #a list of terms to search against B
-B<-c() #a list of terms to search against A
+library(pbapply)
+library(plotly)
+library(stringr)
+library(rvest)
 
-# variables include A and B which are
+#default is input of a text file containing search terms. The lists should be separated with a line containing 
+# the '#' character. This splits the file into A and B
 # lists of terms to do pairwise searches with
 # API.key is an entrez eutils key which enables more searches per second 
 #(however this function does not seem to exceed the normal usage of 3 requests/second)
 # Database is either 'pubmed' or 'pmc' (I do not have the dates coded yet for pmc useage so it may be iffy)
 # daterange takes in two concatenated years if you would like to filter the search by a range of dates (example: c(2012,2017) )
 
-PubMatrix<-function(A,B,API.key=NULL,Database='pubmed',daterange=NULL,outfile){
+
+PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=NULL,outfile==NULL){
+  if(is.null(A) & is.null(B)){
+  file<-readLines(file,warn=F)
+  A<-file[1:which(file=='#')-1]
+  B<-file[(which(file=='#')+1):length(file)]
+  }
   search_list<-sapply(A, function(x) sapply(B,function(y) paste(x,y,sep='+AND+')) )
   search_list<-gsub(' ','+',search_list)
   url<-paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?", 
@@ -67,12 +76,12 @@ PubMatrix<-function(A,B,API.key=NULL,Database='pubmed',daterange=NULL,outfile){
         address<-url_matrix[i,j]
         setCellValue(cell, result_matrix[i,j]) 
         addHyperlink(cell, address)
-    
+        
       }
       
     }
     saveWorkbook(wb, outfile)
-
+    
     
   }
 }
