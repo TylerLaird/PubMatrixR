@@ -1,7 +1,12 @@
+#required libraries
+#on MacOSX you may have to run this command for xlsx related features:
+#sudo ln -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
+
 library(pbapply)
 library(plotly)
 library(stringr)
 library(rvest)
+library(xlsx)
 
 #default is input of a text file containing search terms. The lists should be separated with a line containing 
 # the '#' character. This splits the file into A and B
