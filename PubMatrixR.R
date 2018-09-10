@@ -12,7 +12,7 @@ library(rvest)
 # daterange takes in two concatenated years if you would like to filter the search by a range of dates (example: c(2012,2017) )
 
 
-PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=NULL,outfile==NULL){
+PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=NULL,outfile=NULL){
   if(is.null(A) & is.null(B)){
   file<-readLines(file,warn=F)
   A<-file[1:which(file=='#')-1]
