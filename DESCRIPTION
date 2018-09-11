@@ -1,1 +1,4 @@
-DESCRIPTION
+Package: PubMatrixR
+Title: Make binary Entrez searches
+Version: 1.0
+Authors: Tyler S. Laird
