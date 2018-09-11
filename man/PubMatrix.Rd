@@ -26,5 +26,5 @@ PubMatrix(file, A = NULL, B = NULL, API.key = NULL,
 A search matrix
 }
 \description{
-This function talleys binary search results on PubMed using the Entrez search parameters
+This function talleys boolean search results on PubMed using the Entrez search parameters
 }
