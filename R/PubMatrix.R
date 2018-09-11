@@ -40,16 +40,10 @@ PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=
   
   result_matrix<-matrix(z, nrow=length(B),ncol=length(A))
   searchterm_matrix<-matrix(paste(result_url,search_list,'"style="color:#f44242">',unlist(result_matrix),'</a></b>',sep=''),nrow=length(B),ncol=length(A))
-  m <- list(
-    l = 200,
-    r = 50,
-    b = 200,
-    t = 50,
-    pad = 4)
   p <- plotly::plot_ly(
     x = A, y = B,
     z = result_matrix, type = "heatmap") %>%
-    layout(margin=m) %>% add_annotations(x=rep(0:(length(A)-1), each=length(B)),
+    plotly::layout(margin=list(l = 200,r = 50,b = 200,t = 50,pad = 4)) %>% plotly::add_annotations(x=rep(0:(length(A)-1), each=length(B)),
                                          y=rep(seq(0,length(B)-1),length(B)),
                                          text=unlist(searchterm_matrix), showarrow=F)
   print(p)
@@ -84,10 +78,6 @@ PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=
     
   }
 }
-
-
-
-
 
 
 
