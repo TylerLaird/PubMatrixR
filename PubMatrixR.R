@@ -1,12 +1,3 @@
-#required libraries
-#on MacOSX you may have to run this command for xlsx related features:
-#sudo ln -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
-
-library(pbapply)
-library(plotly)
-library(stringr)
-library(rvest)
-library(xlsx)
 
 #default is input of a text file containing search terms. The lists should be separated with a line containing 
 # the '#' character. This splits the file into A and B
@@ -16,7 +7,7 @@ library(xlsx)
 # Database is either 'pubmed' or 'pmc' (I do not have the dates coded yet for pmc useage so it may be iffy)
 # daterange takes in two concatenated years if you would like to filter the search by a range of dates (example: c(2012,2017) )
 
-
+#' @export
 PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=NULL,outfile=NULL){
   if(is.null(A) & is.null(B)){
   file<-readLines(file,warn=F)
