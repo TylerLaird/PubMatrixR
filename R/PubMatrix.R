@@ -1,6 +1,6 @@
-#' PubMatrix
+#'PubMatrix
 #'
-#' This function talleys binary search results on PubMed using the Entrez search parameters
+#' This function talleys boolean search results on PubMed using the Entrez search parameters
 #'
 #' @param file Path to the input file where two search lists are separated by comment character
 #' @param A A vector of terms to search against B assuming file is not used
@@ -36,7 +36,7 @@ PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=
   }
   print(url)
   print(result_url)
-  z<-unlist(pblapply(search_list, function(x) as.numeric(str_extract_all(read_html(paste0(url,"&term=",x,"&usehistory=y")), '(?<=<esearchresult><count>)\\d+')) ))
+  z<-unlist(pblapply::pblapply(search_list, function(x) as.numeric(stringr::str_extract_all(rvest::read_html(paste0(url,"&term=",x,"&usehistory=y")), '(?<=<esearchresult><count>)\\d+')) ))
   
   result_matrix<-matrix(z, nrow=length(B),ncol=length(A))
   searchterm_matrix<-matrix(paste(result_url,search_list,'"style="color:#f44242">',unlist(result_matrix),'</a></b>',sep=''),nrow=length(B),ncol=length(A))
@@ -46,7 +46,7 @@ PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=
     b = 200,
     t = 50,
     pad = 4)
-  p <- plot_ly(
+  p <- plotly::plot_ly(
     x = A, y = B,
     z = result_matrix, type = "heatmap") %>%
     layout(margin=m) %>% add_annotations(x=rep(0:(length(A)-1), each=length(B)),
@@ -57,30 +57,30 @@ PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=
   if(!is.null(outfile)){
     result_url_xlsx<-paste0('https://www.ncbi.nlm.nih.gov/',Database,'/?term=')
     url_matrix<-matrix(paste0(result_url_xlsx,search_list),nrow=nrow(result_matrix),ncol=ncol(result_matrix))
-    wb <- createWorkbook()
-    sheet1 <- createSheet(wb, "Sheet1")
-    rows   <- createRow(sheet1, 1:(nrow(result_matrix)+1))            
-    cells  <- createCell(rows, colIndex=1:(ncol(result_matrix)+1))
+    wb <- xlsx::createWorkbook()
+    sheet1 <- xlsx::createSheet(wb, "Sheet1")
+    rows   <- xlsx::createRow(sheet1, 1:(nrow(result_matrix)+1))            
+    cells  <- xlsx::createCell(rows, colIndex=1:(ncol(result_matrix)+1))
     for(i in 1:length(B)){
       cell<-cells[[i+1,1]]
-      setCellValue(cell, B[i] )
+      xlsx::setCellValue(cell, B[i] )
     }
     for(i in 1:length(A)){
       cell<-cells[[1,i+1]]
-      setCellValue(cell, A[i] )
+      xlsx::setCellValue(cell, A[i] )
     }
     for(i in 1:nrow(result_matrix)){
       for(j in 1:ncol(result_matrix)){
         print(paste(i,j))
         cell <- cells[[i+1,j+1]]
         address<-url_matrix[i,j]
-        setCellValue(cell, result_matrix[i,j]) 
-        addHyperlink(cell, address)
+        xlsx::setCellValue(cell, result_matrix[i,j]) 
+        xlsx::addHyperlink(cell, address)
         
       }
       
     }
-    saveWorkbook(wb, outfile)
+    xlsx::saveWorkbook(wb, outfile)
     
   }
 }
