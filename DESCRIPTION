@@ -1,4 +1,15 @@
 Package: PubMatrixR
-Title: Make binary Entrez searches
+Title: Search Entrez Using Binary Queries
 Version: 1.0
-Authors: Tyler S. Laird
+Authors@R: person("Tyler", "Laird", email = "tylerscottlaird@gmail.com",
+                  role = c("aut", "cre"))
+Description: Search Entrez Using Binary Queries
+Depends: R (>= 3.1.0)
+License: GPL-2
+LazyData: true
+Imports:
+    pbapply,
+    plotly,
+    stringr,
+    rvest,
+    xlsx
