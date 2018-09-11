@@ -91,6 +91,3 @@ PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=
   }
 }
 
-
-
-PubMatrix(A,B)
