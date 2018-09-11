@@ -1,6 +1,6 @@
 #'PubMatrix
 #'
-#' This function tallies boolean search results on PubMed using the Entrez search parameters
+#' This function talleys boolean search results on PubMed using the Entrez search parameters
 #'
 #' @param file Path to the input file where two search lists are separated by comment character
 #' @param A A vector of terms to search against B assuming file is not used
@@ -36,7 +36,7 @@ PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=
   }
   print(url)
   print(result_url)
-  z<-unlist(pbapply::pblapply(search_list, function(x) as.numeric(stringr::str_extract_all(rvest::read_html(paste0(url,"&term=",x,"&usehistory=y")), '(?<=<esearchresult><count>)\\d+')) ))
+  z<-unlist(pbapply::pblapply(search_list, function(x) as.numeric(stringr::str_extract_all(xml2::read_html(paste0(url,"&term=",x,"&usehistory=y")), '(?<=<esearchresult><count>)\\d+')) ))
   
   result_matrix<-matrix(z, nrow=length(B),ncol=length(A))
   searchterm_matrix<-matrix(paste(result_url,search_list,'"style="color:#f44242">',unlist(result_matrix),'</a></b>',sep=''),nrow=length(B),ncol=length(A))
@@ -84,7 +84,6 @@ PubMatrix<-function(file,A=NULL,B=NULL,API.key=NULL,Database='pubmed',daterange=
     
   }
 }
-
 
 
 

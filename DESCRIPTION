@@ -1,15 +1,16 @@
 Package: PubMatrixR
-Title: Search Entrez Using Binary Queries
 Version: 1.0
+Title: Search Entrez Using Boolean AND Queries
 Authors@R: person("Tyler", "Laird", email = "tylerscottlaird@gmail.com",
-                  role = c("aut", "cre"))
-Description: Search Entrez Using Binary Queries
+	role = c("aut", "cre"))
+Description: Search two lists against each other on pubmed and obtain a resulting pairwise matrix 
 Depends: R (>= 3.1.0)
 License: GPL-2
-LazyData: true
+Encoding: UTF-8
 Imports:
     pbapply,
     plotly,
     stringr,
-    rvest,
+    xml2,
     xlsx
+RoxygenNote: 6.1.0
