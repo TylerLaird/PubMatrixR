@@ -1,6 +1,6 @@
 #'PubMatrix
 #'
-#' This function talleys boolean search results on PubMed using the Entrez search parameters
+#' This function tallies boolean search results on PubMed using the Entrez search parameters
 #'
 #' @param file Path to the input file where two search lists are separated by comment character
 #' @param A A vector of terms to search against B assuming file is not used
